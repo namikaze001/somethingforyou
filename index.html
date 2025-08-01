@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Do You Like Me?</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+      background-color: #fff0f5;
+      overflow: hidden;
+    }
+
+    h1 {
+      color: #ff69b4;
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn {
+      padding: 15px 30px;
+      font-size: 18px;
+      margin: 10px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      position: relative;
+      z-index: 1;
+    }
+
+    #yesBtn {
+      background-color: #4CAF50;
+      color: white;
+      transform-origin: center center;
+    }
+
+    #noBtn {
+      background-color: #f44336;
+      color: white;
+      position: relative;
+      left: 0;
+      transition: left 0.3s ease-in-out;
+    }
+
+    .fullScreenYes {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      font-size: 5rem;
+      border-radius: 0;
+      z-index: 10;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Do You Like Me? 🥺</h1>
+  <button id="yesBtn" class="btn">Yes</button>
+  <button id="noBtn" class="btn">No</button>
+
+  <script>
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+
+    const noMessages = [
+      "Are you sure? 😢",
+      "Think again... 😥",
+      "Really? 💔",
+      "Please? 🥹",
+      "I’ll be sad... 😔",
+      "Just say Yes 🥰",
+      "Final chance! 💘"
+    ];
+
+    let noClickCount = 0;
+    const maxClicks = 7;
+
+    noBtn.addEventListener('click', () => {
+      if (noClickCount < maxClicks) {
+        noBtn.textContent = noMessages[noClickCount];
+        noClickCount++;
+
+        let scaleFactor = 1 + (noClickCount * (6 / maxClicks)); // grows 1 to 7 times
+
+        yesBtn.style.transform = `scale(${scaleFactor})`;
+
+        let noBtnShift = (scaleFactor - 1) * 120;
+        noBtn.style.left = noBtnShift + 'px';
+
+        if (noClickCount === maxClicks) {
+          yesBtn.classList.add('fullScreenYes');
+          yesBtn.textContent = "JUST SAY YES 💖";
+          noBtn.style.left = '100vw'; // hide no button out of screen
+        }
+      }
+    });
+
+    yesBtn.addEventListener('click', () => {
+      window.location.href = "love2.html";  // Redirect to love2.html on yes click
+    });
+  </script>
+</body>
+</html>
