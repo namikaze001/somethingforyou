@@ -10,7 +10,7 @@
       text-align: center;
       margin-top: 100px;
       background-color: #fff0f5;
-      overflow: hidden;
+      /* overflow: hidden; */ /* HATAYA for scroll if needed */
     }
 
     h1 {
@@ -90,23 +90,27 @@
         noBtn.textContent = noMessages[noClickCount];
         noClickCount++;
 
-        let scaleFactor = 1 + (noClickCount * (6 / maxClicks)); // grows 1 to 7 times
-
+        // YES button scale calculation (1 to 7)
+        let scaleFactor = 1 + (noClickCount * (6 / maxClicks));
         yesBtn.style.transform = `scale(${scaleFactor})`;
 
-        let noBtnShift = (scaleFactor - 1) * 120;
+        // Responsive No Button shift
+        let screenWidth = window.innerWidth;
+        let shiftMultiplier = screenWidth < 500 ? 40 : 120;
+        let noBtnShift = (scaleFactor - 1) * shiftMultiplier;
         noBtn.style.left = noBtnShift + 'px';
 
+        // Final stage
         if (noClickCount === maxClicks) {
           yesBtn.classList.add('fullScreenYes');
           yesBtn.textContent = "JUST SAY YES 💖";
-          noBtn.style.left = '100vw'; // hide no button out of screen
+          noBtn.style.left = '100vw';
         }
       }
     });
 
     yesBtn.addEventListener('click', () => {
-      window.location.href = "love2.html";  // Redirect to love2.html on yes click
+      window.location.href = "love2.html"; // Redirect to second page
     });
   </script>
 </body>
